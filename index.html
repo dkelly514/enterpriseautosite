@@ -1,478 +1,961 @@
-/* Enterprise Auto Sales CSS */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enterprise Auto Sales — Premium Vehicle Wholesaler & Dealer Partner</title>
+  <meta name="description" content="Enterprise Auto Sales — premium wholesale access, retail-ready inventory, financing, trade-in, and nationwide delivery." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700;900&family=Playfair+Display:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.ico">
+  <meta property="og:title" content="Enterprise Auto Sales" />
+  <meta property="og:description" content="Premium vehicle wholesaling, retail-ready inventory, and concierge acquisition." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <style>
+    /* ========= Design tokens ========= */
+    :root{
+      --bg:#0b0b0b;
+      --bg-elev:#121212;
+      --surface:#1b1b1b;
+      --line:#2a2a2a;
+      --muted:#b9b9b9;
+      --text:#f2f2f2;
+      --gold:#ffd700;
+      --gold-2:#fff06b;
+      --ok:#21c07a;
+      --warn:#ffb703;
+      --err:#ff5a5f;
 
-/* Reset and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      --radius:14px;
+      --radius-sm:10px;
+      --shadow:0 12px 40px rgba(0,0,0,.35);
+      --shadow-lg:0 24px 80px rgba(0,0,0,.45);
+      --glass:backdrop-filter: blur(12px);
+    }
 
-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f8f9fa;
-}
+    /* ========= Base ========= */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 120% -10%, rgba(255,215,0,.06), transparent 60%),
+        radial-gradient(800px 400px at -20% 110%, rgba(255,215,0,.04), transparent 60%),
+        var(--bg);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1280px;margin:0 auto;padding:0 24px}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
 
-.wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+    /* ========= Header / Nav ========= */
+    .topbar{
+      background:linear-gradient(90deg,#0f0f0f, #181818);
+      border-bottom:1px solid var(--line);
+      font-size:.9rem;
+    }
+    .topbar-inner{display:flex;gap:16px;justify-content:space-between;align-items:center;padding:8px 0;color:var(--muted)}
+    .topbar a{color:var(--text)}
+    header{
+      position:sticky;top:0;z-index:999;
+      background:rgba(5,5,5,.7);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:saturate(140%) blur(10px);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px;font-weight:900;letter-spacing:.6px}
+    .brand img{height:42px;width:auto;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+    .brand .wordmark{font-family:'Playfair Display', serif;color:var(--gold);font-size:1.2rem}
+    .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0}
+    .nav a{position:relative;padding:10px 0}
+    .nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .25s}
+    .nav a:hover::after,.nav a:focus-visible::after{width:100%}
+    .cta-nav{
+      display:flex;gap:10px;align-items:center;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 18px;border-radius:10px;border:1px solid var(--line);
+      background:linear-gradient(180deg,#161616,#0f0f0f);
+      box-shadow:var(--shadow);transition:transform .15s, box-shadow .25s, border-color .25s;
+      text-transform:uppercase;font-weight:700;letter-spacing:.4px;
+    }
+    .btn:hover{transform:translateY(-2px);border-color:var(--gold)}
+    .btn.primary{background:linear-gradient(180deg,var(--gold),#e1bf00);color:#000;border-color:#b89c00}
+    .btn.ghost{background:transparent}
+    .hamburger{display:none;line-height:0}
+    .hamburger button{all:unset;cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--line)}
+    @media (max-width: 980px){
+      .nav ul{display:none!important}
+      .hamburger{display:block}
+      .mobile-menu{position:fixed;inset:70px 0 auto 0;background:#0f0f0f;border-bottom:1px solid var(--line);display:none!important;z-index:1000}
+      .mobile-menu.open{display:block!important}
+      .mobile-menu ul{list-style:none;padding:16px;margin:0}
+      .mobile-menu li{border-top:1px solid var(--line)}
+      .mobile-menu a{display:block;padding:16px}
+      .cta-nav{display:none!important}
+    }
 
-/* Typography */
-h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  margin-bottom: 1rem;
-}
+    /* ========= Hero ========= */
+    .hero{
+      position:relative;isolation:isolate;
+      min-height:72vh;display:grid;place-items:center;
+      overflow:hidden;border-bottom:1px solid var(--line);
+    }
+    .hero video{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;filter:grayscale(20%) contrast(110%) brightness(90%);
+    }
+    .hero::after{
+      content:"";position:absolute;inset:0;background:
+        linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.8) 70%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative;z-index:1;padding:84px 0}
+    .eyebrow{color:var(--muted);letter-spacing:.38em;text-transform:uppercase;font-size:.8rem}
+    .hero h1{
+      font-family:'Playfair Display', serif;
+      font-weight:900;line-height:1.05;margin:.35rem 0 1rem;font-size:clamp(2.2rem, 4vw + .5rem, 4rem);
+      background:linear-gradient(90deg,var(--gold),#fff1a3 60%,#ffffff 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero p{max-width:800px;color:#d9d9d9;font-size:1.1rem}
+    .search-panel{
+      margin-top:28px;display:grid;gap:10px;grid-template-columns: repeat(6, 1fr);
+      padding:14px;border-radius:var(--radius);background:rgba(18,18,18,.85);border:1px solid var(--line);backdrop-filter: blur(10px);
+    }
+    .search-panel .field{display:flex;flex-direction:column;gap:6px}
+    .search-panel label{font-size:.8rem;color:var(--muted);letter-spacing:.06em}
+    .search-panel select,.search-panel input{
+      background:#141414;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:10px;min-height:42px
+    }
+    .search-panel button{grid-column: span 2}
+    @media (max-width: 980px){
+      .hero{min-height:60vh}
+      .search-panel{grid-template-columns: 1fr 1fr}
+      .search-panel button{grid-column: auto}
+    }
 
-h1 {
-  font-size: 3.5rem;
-  color: #fff;
-  margin-bottom: 1.5rem;
-}
+    /* ========= Stats ========= */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+    .stat{
+      background:linear-gradient(180deg,#0f0f0f,#0a0a0a);
+      border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;text-align:center
+    }
+    .stat h3{margin:0;font-family:'Playfair Display', serif;color:var(--gold);font-size:1.8rem}
+    .stat p{margin:4px 0 0;color:var(--muted);text-transform:uppercase;font-weight:600;font-size:.85rem;letter-spacing:.06em}
+    @media (max-width: 980px){.stats{grid-template-columns:1fr 1fr}}
 
-h2 {
-  font-size: 2.5rem;
-  color: #1a1a1a;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+    /* ========= Inventory ========= */
+    section{scroll-margin-top:84px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin:34px 0 16px}
+    .section-head h2{
+      font-family:'Playfair Display', serif;font-size:2rem;margin:0;text-transform:uppercase;color:var(--gold)
+    }
+    .muted{color:var(--muted)}
+    .inventory{
+      display:grid;grid-template-columns:280px 1fr;gap:18px
+    }
+    .filters{
+      position:sticky;top:88px;height:fit-content;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)
+    }
+    .filters .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+    .filters input,.filters select{background:#121212;border:1px solid var(--line);color:var(--text);padding:10px;border-radius:10px}
+    .filters .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+    .chip{padding:6px 10px;border:1px solid var(--line);border-radius:100px;font-size:.85rem;cursor:pointer}
+    .chip.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,215,0,.18) inset}
+    .results-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .sort{display:flex;gap:10px}
+    .sort select{background:#121212;border:1px solid var(--line);color:var(--text);padding:10px;border-radius:10px}
+    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:10px}
+    @media (max-width:1200px){.grid{grid-template-columns:repeat(2, 1fr)}}
+    @media (max-width:720px){
+      .inventory{grid-template-columns:1fr}
+      .filters{position:static}
+      .grid{grid-template-columns:1fr}
+    }
 
-h3 {
-  font-size: 2rem;
-  color: #333;
-}
+    .card{
+      background:linear-gradient(180deg,#121212,#0b0b0b);
+      border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column
+    }
+    .thumb{
+      position:relative;aspect-ratio:16/9;overflow:hidden;background:#0f0f0f
+    }
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .card:hover .thumb img{transform:scale(1.05)}
+    .badge-wrap{position:absolute;top:12px;left:12px;display:flex;gap:8px;flex-wrap:wrap}
+    .badge{
+      font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+      background:rgba(0,0,0,.65);border:1px solid var(--line);border-radius:999px;padding:6px 10px
+    }
+    .badge.gold{border-color:var(--gold);background:rgba(255,215,0,.15);color:#000}
+    .price-row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:14px 14px 0}
+    .price{font-weight:900;font-size:1.25rem}
+    .paynote{font-size:.9rem;color:var(--muted)}
+    .meta{padding:0 14px 12px;color:var(--muted);font-size:.95rem}
+    .meta strong{color:var(--text)}
+    .features{padding:0 14px 14px;display:flex;gap:10px;flex-wrap:wrap}
+    .feature{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.85rem}
+    .actions{margin-top:auto;display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+    .actions .btn{flex:1}
 
-.p {
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
-}
+    /* ========= VDP Modal ========= */
+    dialog#vdp{width:min(1040px,96vw);border:none;border-radius:16px;padding:0;background:#0d0d0d;color:var(--text);box-shadow:var(--shadow-lg)}
+    dialog::backdrop{background:rgba(0,0,0,.65);backdrop-filter:blur(2px)}
+    .vdp-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:14px 16px}
+    .vdp-body{display:grid;grid-template-columns:1.2fr 1fr}
+    .gallery{position:relative;background:#000;border-right:1px solid var(--line)}
+    .gallery img{width:100%;height:auto;display:block}
+    .g-thumbs{display:grid;grid-template-columns:repeat(6, 1fr);gap:6px;padding:8px;border-top:1px solid var(--line);background:#0b0b0b}
+    .g-thumbs img{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:pointer}
+    .vdp-detail{padding:16px;display:grid;gap:10px}
+    .vdp-price{font-size:1.6rem;font-weight:900}
+    .calc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+    .calc input,.calc select{background:#101010;border:1px solid var(--line);color:var(--text);padding:10px;border-radius:10px}
+    .lead-cta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+    .close-x{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:8px}
 
-/* Header and Navigation */
-header {
-  background: #0b0b0b;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
+    @media (max-width: 980px){
+      .vdp-body{grid-template-columns:1fr}
+      .calc,.lead-cta{grid-template-columns:1fr}
+    }
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 20px;
-}
+    /* ========= Forms / Panels ========= */
+    .panel{
+      background:linear-gradient(180deg,#121212,#0d0d0d);
+      border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)
+    }
+    .panel h3{margin:0 0 8px;font-family:'Playfair Display', serif;color:var(--gold)}
+    form .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+    form input, form select, form textarea{
+      background:#121212;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:10px;min-height:44px
+    }
 
-.brand {
-  text-decoration: none;
-  color: #fff;
-}
+    /* ========= Specials / Testimonials / Service ========= */
+    .specials{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px}
+    .special{border:1px dashed var(--gold);border-radius:var(--radius);padding:16px;background:rgba(255,215,0,.03)}
+    .testimonials{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px}
+    .quote{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:#0f0f0f}
+    .quote strong{display:block;margin-top:8px;color:var(--gold)}
+    @media (max-width: 980px){.specials,.testimonials{grid-template-columns:1fr}}
 
-.name {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-}
+    /* ========= Contact / Map / Hours ========= */
+    .contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .map{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+    @media (max-width:980px){.contact-grid{grid-template-columns:1fr}}
 
-.nav ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
+    /* ========= Footer ========= */
+    footer{border-top:1px solid var(--line);margin-top:36px}
+    .footer-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 0}
+    .foot h4{margin:0 0 8px;color:var(--gold);font-family:'Playfair Display', serif}
+    .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .legal{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:.9rem}
+    @media (max-width:980px){.footer-inner{grid-template-columns:1fr 1fr}}
 
-.nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
+    /* ========= Micro-interactions ========= */
+    .pulse{box-shadow:0 0 0 0 rgba(255,215,0,.4);animation:pulse 2s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,215,0,.35)} 70%{box-shadow:0 0 0 18px rgba(255,215,0,0)} 100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
+  </style>
+</head>
+<body>
+  <a class="visually-hidden" href="#inventory">Skip to inventory</a>
 
-.nav ul li a:hover {
-  color: #ffd700;
-}
+  <!-- Top utility bar -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div>Priority Line: <a href="tel:+16562009734">(656) 200‑9734</a> • Email: <a href="mailto:deals@enterpriseauto.net">deals@enterpriseauto.net</a></div>
+      <div>Open Today: 9:00 AM — 7:00 PM</div>
+    </div>
+  </div>
 
-/* Buttons */
-.btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 700;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  font-size: 1rem;
-}
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <a class="brand" href="#home" aria-label="Enterprise Auto Sales Home">
+        <img src="assets/logo.svg" alt="Enterprise Auto Sales logo" onerror="this.style.display='none';document.querySelector('.wordmark').style.display='block'">
+        <span class="wordmark" style="display:none">ENTERPRISE AUTO SALES</span>
+      </a>
+      <ul>
+        <li><a href="#inventory">Inventory</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#finance">Finance</a></li>
+        <li><a href="#trade">Trade‑In</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Hours &amp; Contact</a></li>
+      </ul>
+      <div class="cta-nav">
+        <a href="#inventory" class="btn ghost">Shop</a>
+        <a href="#contact" class="btn primary pulse">Contact</a>
+      </div>
+      <div class="hamburger">
+        <button aria-controls="mobileMenu" aria-expanded="false" id="menuBtn">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+      <ul>
+        <li><a href="#inventory">Inventory</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#finance">Finance</a></li>
+        <li><a href="#trade">Trade‑In</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Hours & Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-.btn.primary {
-  background: linear-gradient(135deg, #ffd700, #ffed4a);
-  color: #0b0b0b;
-}
+  <!-- Hero -->
+  <section id="home" class="hero" aria-label="Hero">
+    <video autoplay muted loop playsinline poster="assets/hero-fallback.jpg">
+      <!-- swap src with your compressed MP4/WebM -->
+      <source src="assets/hero-driving.mp4" type="video/mp4">
+    </video>
+    <div class="container hero-inner">
+      <div class="eyebrow">Professional Vehicle Wholesaling • Retail‑Ready</div>
+      <h1>Enterprise Auto Sales</h1>
+      <p>Elite sourcing, transparent pricing, and nationwide delivery. Search our live inventory or request something rare—we'll get it.</p>
 
-.btn.primary:hover {
-  background: linear-gradient(135deg, #ffed4a, #ffd700);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-}
+      <!-- Quick Search -->
+      <form class="search-panel" id="quickSearch" action="#inventory">
+        <div class="field">
+          <label for="qCondition">Condition</label>
+          <select id="qCondition">
+            <option value="">All</option>
+            <option>New</option>
+            <option>Used</option>
+            <option>Certified</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMake">Make</label>
+          <select id="qMake"><option value="">Any</option></select>
+        </div>
+        <div class="field">
+          <label for="qModel">Model</label>
+          <select id="qModel" disabled><option value="">Any</option></select>
+        </div>
+        <div class="field">
+          <label for="qMaxPrice">Max Price</label>
+          <select id="qMaxPrice">
+            <option value="">No Max</option>
+            <option value="20000">$20k</option>
+            <option value="35000">$35k</option>
+            <option value="50000">$50k</option>
+            <option value="75000">$75k</option>
+            <option value="100000">$100k</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qBody">Body</label>
+          <select id="qBody"><option value="">Any</option></select>
+        </div>
+        <button class="btn primary" type="submit" aria-label="Search Inventory">Search</button>
+      </form>
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0b0b0b 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
+      <!-- Key Stats -->
+      <div class="stats">
+        <div class="stat"><h3>15+</h3><p>Years Experience</p></div>
+        <div class="stat"><h3>10k+</h3><p>Vehicles Sourced</p></div>
+        <div class="stat"><h3>50</h3><p>States Covered</p></div>
+        <div class="stat"><h3>500+</h3><p>Dealer Partners</p></div>
+      </div>
+    </div>
+  </section>
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="80" cy="40" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="40" cy="80" r="1" fill="%23ffffff" opacity="0.04"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  opacity: 0.1;
-}
+  <!-- Inventory -->
+  <section id="inventory" class="container">
+    <div class="section-head">
+      <h2>Live Inventory</h2>
+      <div class="muted" aria-live="polite"><span id="resultCount">0</span> vehicles</div>
+    </div>
 
-.inner {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  margin-top: 80px;
-}
+    <div class="inventory">
+      <!-- Filters -->
+      <aside class="filters" aria-label="Filters">
+        <div class="field">
+          <label for="fSearch">Keyword</label>
+          <input id="fSearch" placeholder="VIN, trim, feature...">
+        </div>
+        <div class="field">
+          <label for="fMake">Make</label>
+          <select id="fMake"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="fModel">Model</label>
+          <select id="fModel" disabled><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="fYearMin">Year</label>
+          <div style="display:flex;gap:8px">
+            <select id="fYearMin"><option value="">Min</option></select>
+            <select id="fYearMax"><option value="">Max</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fPriceMax">Price (Max)</label>
+          <select id="fPriceMax">
+            <option value="">No Max</option>
+            <option value="20000">$20k</option><option value="35000">$35k</option>
+            <option value="50000">$50k</option><option value="75000">$75k</option>
+            <option value="100000">$100k</option><option value="150000">$150k</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Condition</label>
+          <div class="chips" id="fCondition">
+            <span class="chip" data-val="">All</span>
+            <span class="chip" data-val="New">New</span>
+            <span class="chip" data-val="Used">Used</span>
+            <span class="chip" data-val="Certified">Certified</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Body Style</label>
+          <div class="chips" id="fBody"></div>
+        </div>
+        <div class="field">
+          <label>Mileage (Max)</label>
+          <select id="fMilesMax">
+            <option value="">No Max</option>
+            <option value="25000">25k</option><option value="50000">50k</option>
+            <option value="75000">75k</option><option value="100000">100k</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Drivetrain</label>
+          <div class="chips" id="fDrive"></div>
+        </div>
+        <div class="field">
+          <label>Fuel</label>
+          <div class="chips" id="fFuel"></div>
+        </div>
+        <button class="btn" id="clearFilters" type="button">Clear Filters</button>
+      </aside>
 
-.eyebrow {
-  background: rgba(255, 215, 0, 0.1);
-  color: #ffd700;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  display: inline-block;
-  border: 1px solid rgba(255, 215, 0, 0.2);
-}
+      <!-- Results -->
+      <div>
+        <div class="results-head">
+          <div class="muted">Showing best matches</div>
+          <div class="sort">
+            <label class="visually-hidden" for="sortBy">Sort by</label>
+            <select id="sortBy">
+              <option value="recent">Recently Added</option>
+              <option value="priceAsc">Price: Low → High</option>
+              <option value="priceDesc">Price: High → Low</option>
+              <option value="milesAsc">Mileage: Low → High</option>
+              <option value="yearDesc">Year: New → Old</option>
+            </select>
+          </div>
+        </div>
+        <div id="grid" class="grid" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
 
-/* Stats Bar */
-.statbar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
-  padding: 2rem 0;
-}
+  <!-- Specials -->
+  <section id="specials" class="container">
+    <div class="section-head"><h2>Manager Specials</h2></div>
+    <div class="specials" id="specialsWrap">
+      <!-- JS will populate from inventory with `special:true` -->
+    </div>
+  </section>
 
-.stat {
-  text-align: center;
-  color: #fff;
-}
+  <!-- Finance & Trade -->
+  <section id="finance" class="container">
+    <div class="section-head"><h2>Finance Center</h2></div>
+    <div class="panel">
+      <p class="muted">Get pre‑qualified in minutes. No SSN or DOB required for a soft pull.</p>
+      <form id="financeForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field"><label for="finName">Full Name</label><input id="finName" name="name" required></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="field"><label for="finEmail">Email</label><input id="finEmail" type="email" name="_replyto" required></div>
+          <div class="field"><label for="finPhone">Phone</label><input id="finPhone" type="tel" name="phone" required></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div class="field"><label for="finDown">Down Payment</label><input id="finDown" name="down" type="number" min="0" step="500" placeholder="e.g., 5000"></div>
+          <div class="field"><label for="finTerm">Term (months)</label>
+            <select id="finTerm" name="term"><option>36</option><option selected>60</option><option>72</option><option>84</option></select>
+          </div>
+          <div class="field"><label for="finCredit">Credit Tier</label>
+            <select id="finCredit" name="credit"><option>Excellent (720+)</option><option>Good (660–719)</option><option>Fair (600–659)</option><option>Rebuilding (&lt;600)</option></select>
+          </div>
+        </div>
+        <button class="btn primary" type="submit">Pre‑Qualify</button>
+      </form>
+      <small class="muted">By submitting, you agree to be contacted by Enterprise Auto Sales by phone, text, or email. This is a soft inquiry and won't impact your credit score.</small>
+    </div>
+  </section>
 
-.stat h3 {
-  color: #ffd700;
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
+  <section id="trade" class="container">
+    <div class="section-head"><h2>Value Your Trade</h2></div>
+    <div class="panel">
+      <form id="tradeForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <div class="field"><label for="tYear">Year</label><input id="tYear" name="year" type="number" min="1980" required></div>
+          <div class="field"><label for="tMake">Make</label><input id="tMake" name="make" required></div>
+          <div class="field"><label for="tModel">Model</label><input id="tModel" name="model" required></div>
+          <div class="field"><label for="tMiles">Mileage</label><input id="tMiles" name="mileage" type="number" min="0"></div>
+        </div>
+        <div class="field"><label for="tVin">VIN (optional)</label><input id="tVin" name="vin" pattern="[A-HJ-NPR-Z0-9]{11,17}" placeholder="17‑char VIN"></div>
+        <div class="field"><label for="tNotes">Condition / Notes</label><textarea id="tNotes" name="notes" rows="3" placeholder="Trim, options, accidents, upgrades…"></textarea></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="field"><label for="tName">Your Name</label><input id="tName" name="name" required></div>
+          <div class="field"><label for="tContact">Best Contact</label><input id="tContact" name="contact" required placeholder="Email or phone"></div>
+        </div>
+        <button class="btn primary" type="submit">Get Appraisal</button>
+      </form>
+      <small class="muted">Estimates are based on current market data and condition. Final value after on‑site inspection.</small>
+    </div>
+  </section>
 
-.stat div {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+  <!-- Service -->
+  <section id="service" class="container">
+    <div class="section-head"><h2>Service &amp; Delivery</h2></div>
+    <div class="panel">
+      <p>Schedule service or request enclosed, nationwide delivery. We coordinate transport, temp tags, and paperwork.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="#contact">Schedule Service</a>
+        <a class="btn ghost" href="#inventory">Shop &amp; Ship</a>
+      </div>
+    </div>
+  </section>
 
-/* Main Content Sections */
-main {
-  margin-top: 0;
-}
+  <!-- Testimonials -->
+  <section class="container" id="about">
+    <div class="section-head"><h2>About &amp; Reviews</h2></div>
+    <div class="panel" style="margin-bottom:16px">
+      <p>Since 2010 our team has sourced hard‑to‑find vehicles for retail buyers and dealer partners. Transparent reconditioning, verified histories, and fast closings.</p>
+    </div>
+    <div class="testimonials">
+      <div class="quote">"Found a GT3 in 48 hours. Wire, paperwork, enclosed delivery—done." <strong>— A. Patel</strong></div>
+      <div class="quote">"Inventory data is accurate and the photos match reality. Zero surprises." <strong>— Larson Imports</strong></div>
+      <div class="quote">"Trade numbers were fair and the payment matched the estimate." <strong>— K. Romero</strong></div>
+    </div>
+  </section>
 
-section {
-  padding: 4rem 0;
-}
+  <!-- Contact / Map / Hours -->
+  <section id="contact" class="container">
+    <div class="section-head"><h2>Hours &amp; Contact</h2></div>
+    <div class="contact-grid">
+      <div class="panel">
+        <h3>Direct Access</h3>
+        <p><strong>Phone:</strong> <a href="tel:+16562009734">(656) 200‑9734</a><br>
+           <strong>Email:</strong> <a href="mailto:deals@enterpriseauto.net">deals@enterpriseauto.net</a><br>
+           <strong>Address:</strong> 2462 East Michigan Street, Suite 207, Orlando, FL 32806</p>
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="margin-top:10px">
+          <div class="field"><label for="cName">Name</label><input id="cName" name="name" required></div>
+          <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="_replyto" type="email" required></div>
+          <div class="field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" rows="4" required placeholder="What can we find for you?"></textarea></div>
+          <button class="btn primary">Send</button>
+        </form>
+      </div>
+      <div class="map">
+        <!-- Replace with your preferred map provider embed -->
+        <iframe title="Map" width="100%" height="420" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=2462%20East%20Michigan%20Street%20Orlando%20FL&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
 
-section:not(.hero) {
-  background: #fff;
-  margin: 2rem 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="foot">
+        <h4>Enterprise Auto Sales</h4>
+        <p style="color:var(--muted)">Premium wholesaling & retail inventory. Licensed nationwide.</p>
+      </div>
+      <div class="foot">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#inventory">All Vehicles</a></li>
+          <li><a href="#specials">Specials</a></li>
+          <li><a href="#trade">Value Your Trade</a></li>
+          <li><a href="#finance">Financing</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Hours</h4>
+        <ul>
+          <li>Mon–Sat: 9:00–7:00</li>
+          <li>Sun: By appointment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container legal">
+      <div>&copy; 2025 Enterprise Auto Sales. All rights reserved.</div>
+      <div style="margin-top:8px">Pricing plus tax, title, registration and dealer fees. Estimated payments are for reference only and assume 10% down at 6.9% APR for 72 months; actual terms vary by applicant and vehicle. We strive for accuracy; not responsible for typographical or data errors.</div>
+    </div>
+  </footer>
 
-/* Inventory Cards */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.thumb {
-  position: relative;
-  overflow: hidden;
-}
-
-.thumb img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.card:hover .thumb img {
-  transform: scale(1.05);
-}
-
-.cbody {
-  padding: 1.5rem;
-}
-
-.price {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-}
-
-.meta {
-  color: #666;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-}
-
-.chip {
-  background: #f1f1f1;
-  color: #333;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-}
-
-.muted {
-  color: #888;
-  font-size: 0.85rem;
-  text-align: center;
-  margin-top: 1rem;
-}
-
-/* Forms */
-.panel {
-  background: #f8f9fa;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #e9ecef;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #333;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-}
-
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-input[hidden] {
-  display: none;
-}
-
-/* Contact Section */
-#contact .panel {
-  padding: 2rem;
-}
-
-#contact .row {
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: start;
-}
-
-#contact p {
-  margin-bottom: 2rem;
-  line-height: 1.8;
-}
-
-#contact strong {
-  color: #1a1a1a;
-}
-
-#contact a {
-  color: #ffd700;
-  text-decoration: none;
-}
-
-#contact a:hover {
-  text-decoration: underline;
-}
-
-iframe {
-  border-radius: 12px;
-  width: 100%;
-  height: 280px;
-}
-
-/* Footer */
-footer {
-  background: #0b0b0b;
-  color: #fff;
-  padding: 2rem 0;
-  text-align: center;
-}
-
-footer .wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-footer .muted {
-  color: #888;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+  <!-- ======= Inventory (sample) ======= 
+       Replace this <script> with your real feed (JSON/CSV → convert to JSON). -->
+  <script id="inventory-data" type="application/json">
+  {
+    "vehicles":[
+      {
+        "id":"EAS-001","vin":"WP0AA2A90PS256111","year":2023,"make":"Porsche","model":"911 Carrera","trim":"S","price":129990,
+        "msrp":149900,"miles":5100,"condition":"Used","certified":true,"body":"Coupe","drivetrain":"RWD","fuel":"Gasoline",
+        "color":"Chalk","images":["assets/inv/911-1.jpg","assets/inv/911-2.jpg","assets/inv/911-3.jpg","assets/inv/911-4.jpg"],
+        "features":["PDK","Sport Chrono","BOSE","Carbon Fiber"],"special":true,"dateAdded":"2025-07-01"
+      },
+      {
+        "id":"EAS-002","vin":"5YJSA1E26MF123456","year":2021,"make":"Tesla","model":"Model S","trim":"Long Range","price":54990,
+        "msrp":89990,"miles":21800,"condition":"Used","certified":false,"body":"Sedan","drivetrain":"AWD","fuel":"Electric",
+        "color":"Pearl White","images":["assets/inv/ms-1.jpg","assets/inv/ms-2.jpg","assets/inv/ms-3.jpg"],
+        "features":["Autopilot","Glass Roof","Heated Seats"],"special":false,"dateAdded":"2025-07-15"
+      },
+      {
+        "id":"EAS-003","vin":"W1N0G8EB2PN012345","year":2023,"make":"Mercedes-Benz","model":"GLC","trim":"300 4MATIC","price":48990,
+        "msrp":57990,"miles":8900,"condition":"Certified","certified":true,"body":"SUV","drivetrain":"AWD","fuel":"Gasoline",
+        "color":"Obsidian Black","images":["assets/inv/glc-1.jpg","assets/inv/glc-2.jpg"],"features":["MBUX","Panorama Roof","360° Camera"],
+        "special":false,"dateAdded":"2025-06-25"
+      },
+      {
+        "id":"EAS-004","vin":"1FTFW1E53PKA12345","year":2023,"make":"Ford","model":"F-150","trim":"Lariat","price":52900,
+        "msrp":62900,"miles":12500,"condition":"Used","certified":false,"body":"Truck","drivetrain":"4WD","fuel":"Gasoline",
+        "color":"Carbonized Gray","images":["assets/inv/f150-1.jpg","assets/inv/f150-2.jpg"],"features":["FX4","Tow Pkg","Heated Seats"],
+        "special":true,"dateAdded":"2025-05-18"
+      },
+      {
+        "id":"EAS-005","vin":"JTDKAMFU0N3135798","year":2022,"make":"Toyota","model":"Prius","trim":"LE","price":22990,
+        "msrp":27990,"miles":16750,"condition":"Used","certified":false,"body":"Hatchback","drivetrain":"FWD","fuel":"Hybrid",
+        "color":"Blue Magnetism","images":["assets/inv/prius-1.jpg"],"features":["Adaptive Cruise","Lane Keep","Apple CarPlay"],
+        "special":false,"dateAdded":"2025-07-29"
+      },
+      {
+        "id":"EAS-006","vin":"WAUD4AFRXPA012345","year":2023,"make":"Audi","model":"A6","trim":"Premium Plus","price":45990,
+        "msrp":58990,"miles":11200,"condition":"Used","certified":false,"body":"Sedan","drivetrain":"AWD","fuel":"Gasoline",
+        "color":"Daytona Gray","images":["assets/inv/a6-1.jpg","assets/inv/a6-2.jpg"],"features":["Virtual Cockpit","S-Line"],"special":false,
+        "dateAdded":"2025-04-10"
+      }
+    ]
   }
-  
-  .nav ul {
-    gap: 1rem;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-  }
-  
-  h2 {
-    font-size: 2rem;
-  }
-  
-  .statbar {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  
-  .stat h3 {
-    font-size: 2rem;
-  }
-  
-  .cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .row {
-    grid-template-columns: 1fr;
-  }
-  
-  #contact .row {
-    grid-template-columns: 1fr;
-  }
-  
-  footer .wrap {
-    flex-direction: column;
-    text-align: center;
-  }
-}
+  </script>
 
-@media (max-width: 480px) {
-  .wrap {
-    padding: 0 15px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-  }
-  
-  .statbar {
-    grid-template-columns: 1fr;
-  }
-  
-  .panel {
-    padding: 1.5rem;
-  }
-  
-  section {
-    margin: 1rem 0;
-    padding: 2rem 0;
-  }
-}
+  <!-- ======= Templates for cards (for speed & clarity) ======= -->
+  <template id="card-tpl">
+    <article class="card" aria-label="Vehicle">
+      <div class="thumb">
+        <img alt="">
+        <div class="badge-wrap"></div>
+      </div>
+      <div class="price-row">
+        <div class="price"></div>
+        <div class="paynote"></div>
+      </div>
+      <div class="meta"></div>
+      <div class="features"></div>
+      <div class="actions">
+        <button class="btn" data-action="details">View Details</button>
+        <button class="btn primary" data-action="lead">Check Availability</button>
+      </div>
+    </article>
+  </template>
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
+  <!-- ======= VDP Modal ======= -->
+  <dialog id="vdp" aria-labelledby="vdpTitle">
+    <div class="vdp-head">
+      <div>
+        <div id="vdpTitle" style="font-weight:900"></div>
+        <div class="muted" id="vdpVin"></div>
+      </div>
+      <button class="close-x" id="vdpClose" aria-label="Close">✕</button>
+    </div>
+    <div class="vdp-body">
+      <div class="gallery">
+        <img id="gMain" alt="">
+        <div class="g-thumbs" id="gThumbs"></div>
+      </div>
+      <div class="vdp-detail">
+        <div class="vdp-price" id="vdpPrice"></div>
+        <div id="vdpMeta" class="muted"></div>
+        <div id="vdpFeatures" style="display:flex;gap:8px;flex-wrap:wrap"></div>
 
-/* Loading Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+        <div class="panel" style="padding:12px">
+          <strong>Estimate Your Payment</strong>
+          <div class="calc">
+            <input id="calcPrice" type="number" min="0" step="500" aria-label="Price">
+            <input id="calcDown" type="number" min="0" step="500" placeholder="Down">
+            <select id="calcTerm"><option>36</option><option>60</option><option selected>72</option><option>84</option></select>
+            <select id="calcApr"><option>3.9</option><option selected>6.9</option><option>8.9</option><option>12.9</option></select>
+          </div>
+          <div class="muted" id="calcResult" style="margin-top:6px"></div>
+        </div>
 
-.card, .panel, section {
-  animation: fadeIn 0.6s ease-out;
-}
+        <div class="lead-cta">
+          <a id="leadAvail" class="btn primary">Check Availability</a>
+          <a id="leadTestDrive" class="btn">Schedule Test Drive</a>
+        </div>
+        <small class="muted">Estimates exclude taxes, title, license & fees; credit approval required.</small>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ======= Scripts ======= -->
+  <script>
+    /* ------------- Mobile menu ------------- */
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', ()=>{
+      const open = mobileMenu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
+
+    /* ------------- Helpers ------------- */
+    const $ = sel => document.querySelector(sel);
+    const $ = sel => Array.from(document.querySelectorAll(sel));
+    const fmtMoney = n => n.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0});
+    const monthly = (price, down, apr, months) => {
+      const P = Math.max(0, price - down);
+      const r = (Number(apr)/100)/12;
+      if (!r) return P / months;
+      return P * (r * Math.pow(1+r, months)) / (Math.pow(1+r, months)-1);
+    };
+
+    /* ------------- Load inventory ------------- */
+    const data = JSON.parse(document.getElementById('inventory-data').textContent);
+    let INV = data.vehicles || [];
+    // derive facets
+    const MAKES = [...new Set(INV.map(v=>v.make))].sort();
+    const MODELS_BY_MAKE = MAKES.reduce((m,k)=> (m[k]=[...new Set(INV.filter(v=>v.make===k).map(v=>v.model))].sort(), m), {});
+    const BODIES = [...new Set(INV.map(v=>v.body))].sort();
+    const DRIVETRAINS = [...new Set(INV.map(v=>v.drivetrain))].sort();
+    const FUELS = [...new Set(INV.map(v=>v.fuel))].sort();
+    const YEARS = INV.reduce((s,v)=>(s.add(v.year),s), new Set());
+    const YEARS_SORT = [...YEARS].sort((a,b)=>a-b);
+
+    /* ------------- Populate Quick Search ------------- */
+    const qMake = $('#qMake'); const qModel = $('#qModel'); const qBody = $('#qBody');
+    MAKES.forEach(m=>qMake.append(new Option(m,m)));
+    BODIES.forEach(b=>qBody.append(new Option(b,b)));
+    qMake.addEventListener('change', ()=>{
+      qModel.innerHTML = '<option value="">Any</option>';
+      qModel.disabled = !qMake.value;
+      (MODELS_BY_MAKE[qMake.value]||[]).forEach(md=>qModel.append(new Option(md,md)));
+    });
+    $('#quickSearch').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // apply to main filters & scroll
+      $('#fMake').value = qMake.value; populateModels('f');
+      $('#fModel').value = qModel.value;
+      setChip('#fCondition', $('#qCondition').value);
+      $('#fBody').querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.val===qBody.value));
+      $('#fPriceMax').value = $('#qMaxPrice').value;
+      document.getElementById('inventory').scrollIntoView({behavior:'smooth'});
+      render();
+    });
+
+    /* ------------- Populate Filters ------------- */
+    const fMake=$('#fMake'), fModel=$('#fModel');
+    MAKES.forEach(m=>fMake.append(new Option(m,m)));
+    function populateModels(prefix){
+      const make = document.getElementById(prefix==='f'?'fMake':'qMake').value;
+      const sel = document.getElementById(prefix==='f'?'fModel':'qModel');
+      sel.innerHTML = '<option value="">'+(prefix==='f'?'All':'Any')+'</option>';
+      sel.disabled = !make;
+      (MODELS_BY_MAKE[make]||[]).forEach(md=>sel.append(new Option(md,md)));
+    }
+    fMake.addEventListener('change', ()=>{ populateModels('f'); render(); });
+
+    YEARS_SORT.forEach(y=>{
+      ['fYearMin','fYearMax'].forEach(id=>document.getElementById(id).append(new Option(y,y)))
+    });
+    const fBody=$('#fBody'); BODIES.forEach(b=>{const s=document.createElement('span');s.className='chip';s.dataset.val=b;s.textContent=b;fBody.append(s);});
+    const fDrive=$('#fDrive'); DRIVETRAINS.forEach(d=>{const s=document.createElement('span');s.className='chip';s.dataset.val=d;s.textContent=d;fDrive.append(s);});
+    const fFuel=$('#fFuel'); FUELS.forEach(f=>{const s=document.createElement('span');s.className='chip';s.dataset.val=f;s.textContent=f;fFuel.append(s);});
+
+    function setChip(containerSelector, value){
+      const chips = document.querySelectorAll(containerSelector+' .chip');
+      chips.forEach(c => c.classList.toggle('active', c.dataset.val === value || (value==='' && c.dataset.val==='')));
+    }
+    ['#fCondition','#fBody','#fDrive','#fFuel'].forEach(sel=>{
+      document.querySelector(sel).addEventListener('click', (e)=>{ if(e.target.classList.contains('chip')){ e.target.classList.toggle('active'); render(); }});
+    });
+
+    $('#fModel').addEventListener('change', render);
+    $('#fSearch').addEventListener('input', _debounce(render, 150));
+    ['fYearMin','fYearMax','fPriceMax','fMilesMax','sortBy'].forEach(id=>document.getElementById(id).addEventListener('change', render));
+    $('#clearFilters').addEventListener('click', ()=>{
+      ['fSearch','fMake','fModel','fYearMin','fYearMax','fPriceMax','fMilesMax','sortBy'].forEach(id=>{const el=document.getElementById(id); if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';});
+      ['#fCondition','#fBody','#fDrive','#fFuel'].forEach(sel=> $(sel+' .chip').forEach(c=>c.classList.remove('active')));
+      render();
+    });
+
+    /* ------------- Render grid ------------- */
+    const grid = $('#grid'); const cardTpl = $('#card-tpl');
+    function render(){
+      const q = {
+        kw: $('#fSearch').value.trim().toLowerCase(),
+        make: fMake.value,
+        model: fModel.value,
+        yearMin: +($('#fYearMin').value||0),
+        yearMax: +($('#fYearMax').value||9999),
+        priceMax: +($('#fPriceMax').value||1e12),
+        milesMax: +($('#fMilesMax').value||1e12),
+        cond: chips('#fCondition'),
+        body: chips('#fBody'),
+        drive: chips('#fDrive'),
+        fuel: chips('#fFuel'),
+        sort: $('#sortBy').value
+      };
+      let list = INV.filter(v=>{
+        const text = `${v.year} ${v.make} ${v.model} ${v.trim} ${v.vin} ${v.features.join(' ')}`.toLowerCase();
+        const passKW = q.kw? text.includes(q.kw):true;
+        const passMake = q.make? v.make===q.make:true;
+        const passModel = q.model? v.model===q.model:true;
+        const passYear = v.year>=q.yearMin && v.year<=q.yearMax;
+        const passPrice = v.price<=q.priceMax;
+        const passMiles = v.miles<=q.milesMax;
+        const passCond = q.cond.size? q.cond.has(v.condition) || (v.certified && q.cond.has('Certified')) : true;
+        const passBody = q.body.size? q.body.has(v.body):true;
+        const passDrive = q.drive.size? q.drive.has(v.drivetrain):true;
+        const passFuel = q.fuel.size? q.fuel.has(v.fuel):true;
+        return passKW && passMake && passModel && passYear && passPrice && passMiles && passCond && passBody && passDrive && passFuel;
+      });
+
+      list.sort((a,b)=>{
+        switch(q.sort){
+          case 'priceAsc': return a.price-b.price;
+          case 'priceDesc': return b.price-a.price;
+          case 'milesAsc': return a.miles-b.miles;
+          case 'yearDesc': return b.year-a.year;
+          default: return new Date(b.dateAdded)-new Date(a.dateAdded);
+        }
+      });
+
+      $('#resultCount').textContent = list.length;
+      grid.innerHTML='';
+      const frag = document.createDocumentFragment();
+      list.forEach(v=>frag.append(card(v)));
+      grid.append(frag);
+
+      // specials
+      const specialsWrap = document.getElementById('specialsWrap');
+      specialsWrap.innerHTML='';
+      list.filter(v=>v.special).slice(0,3).forEach(v=>{
+        const el = document.createElement('div'); el.className='special';
+        el.innerHTML = `<strong>${v.year} ${v.make} ${v.model} ${v.trim||''}</strong><br>
+                        ${fmtMoney(v.price)}  <span class="muted">was ${fmtMoney(v.msrp||v.price)}</span><br>
+                        <small class="muted">${v.miles.toLocaleString()} miles • ${v.body} • ${v.drivetrain}</small>`;
+        specialsWrap.append(el);
+      });
+    }
+    function chips(sel){
+      const s = new Set(); $(sel+' .chip.active').forEach(c=>s.add(c.dataset.val)); return s;
+    }
+    function card(v){
+      const t = cardTpl.content.cloneNode(true);
+      // image
+      t.querySelector('.thumb img').src = (v.images&&v.images[0])||'assets/placeholder.jpg';
+      t.querySelector('.thumb img').alt = `${v.year} ${v.make} ${v.model}`;
+      // badges
+      const bw = t.querySelector('.badge-wrap');
+      if (v.certified) addBadge(bw,'Certified','gold');
+      addBadge(bw, v.condition);
+      if (v.special) addBadge(bw,'Special');
+      // price / meta
+      t.querySelector('.price').textContent = fmtMoney(v.price);
+      t.querySelector('.paynote').textContent = `≈ ${fmtMoney(monthly(v.price, Math.min(5000, v.price*0.1), 6.9, 72))}/mo`;
+      t.querySelector('.meta').innerHTML = `<strong>${v.year} ${v.make} ${v.model}${v.trim? ' '+v.trim:''}</strong><br>
+        ${v.miles.toLocaleString()} mi • ${v.body} • ${v.drivetrain}`;
+      // features
+      const feat = t.querySelector('.features');
+      (v.features||[]).slice(0,4).forEach(f=>{const s=document.createElement('span');s.className='feature';s.textContent=f;feat.append(s);});
+      // actions
+      t.querySelector('[data-action="details"]').addEventListener('click', ()=>openVDP(v));
+      t.querySelector('[data-action="lead"]').addEventListener('click', ()=>openLead('Availability', v));
+      return t;
+    }
+    function addBadge(el,txt,cls){const b=document.createElement('span');b.className='badge '+(cls||'');b.textContent=txt;el.append(b);}
+
+    render();
+
+    /* ------------- VDP ------------- */
+    const vdp = document.getElementById('vdp');
+    const vdpClose = document.getElementById('vdpClose');
+    vdpClose.addEventListener('click', ()=>vdp.close());
+    function openVDP(v){
+      document.getElementById('vdpTitle').textContent = `${v.year} ${v.make} ${v.model} ${v.trim||''}`;
+      document.getElementById('vdpVin').textContent = `VIN: ${v.vin}`;
+      document.getElementById('vdpPrice').textContent = fmtMoney(v.price);
+      document.getElementById('vdpMeta').textContent = `${v.miles.toLocaleString()} miles • ${v.body} • ${v.drivetrain} • ${v.fuel}`;
+      const fwrap = document.getElementById('vdpFeatures'); fwrap.innerHTML='';
+      (v.features||[]).forEach(f=>{const s=document.createElement('span');s.className='feature';s.textContent=f;fwrap.append(s);});
+      const main = document.getElementById('gMain'); main.src = (v.images&&v.images[0])||'assets/placeholder.jpg'; main.alt = `${v.year} ${v.make} ${v.model}`;
+      const thumbs = document.getElementById('gThumbs'); thumbs.innerHTML='';
+      (v.images||[]).forEach(src=>{
+        const i=document.createElement('img'); i.src=src; i.alt=""; i.addEventListener('click', ()=>main.src=src); thumbs.append(i);
+      });
+      // calc defaults
+      document.getElementById('calcPrice').value = v.price;
+      document.getElementById('calcDown').value = Math.round(Math.min(5000, v.price*0.1));
+      calcUpdate();
+      ['calcPrice','calcDown','calcTerm','calcApr'].forEach(id=>document.getElementById(id).addEventListener('input', calcUpdate));
+      // lead links
+      document.getElementById('leadAvail').onclick = ()=>openLead('Availability', v);
+      document.getElementById('leadTestDrive').onclick = ()=>openLead('Test Drive', v);
+      vdp.showModal();
+    }
+    function calcUpdate(){
+      const p=+document.getElementById('calcPrice').value||0;
+      const d=+document.getElementById('calcDown').value||0;
+      const m=+document.getElementById('calcTerm').value||72;
+      const a=+document.getElementById('calcApr').value||6.9;
+      const pay = monthly(p,d,a,m);
+      document.getElementById('calcResult').textContent = `~ ${fmtMoney(pay)}/mo with ${fmtMoney(d)} down @ ${a}% for ${m} months`;
+    }
+
+    /* ------------- Lead capture ------------- */
+    function openLead(type, v){
+      const subject = encodeURIComponent(`[${type}] ${v.year} ${v.make} ${v.model} ${v.trim||''} (${v.vin})`);
+      const body = encodeURIComponent(`I'm interested in ${v.year} ${v.make} ${v.model} ${v.trim||''} (VIN ${v.vin}). Please contact me with details.`);
+      // If you use a CRM endpoint, replace this with a modal or POST.
+      window.location.href = `mailto:deals@enterpriseauto.net?subject=${subject}&body=${body}`;
+    }
+
+    /* ------------- Utilities ------------- */
+    function _debounce(fn,ms){let t;return (...a)=>{clearTimeout(t);t=setTimeout(()=>fn.apply(this,a),ms)}}
+  </script>
+
+  <!-- ======= Structured Data (SEO) ======= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "name": "Enterprise Auto Sales",
+    "image": "https://example.com/assets/logo.svg",
+    "telephone": "+1-656-200-9734",
+    "email": "deals@enterpriseauto.net",
+    "address": {"@type":"PostalAddress","streetAddress":"2462 East Michigan Street, Suite 207","addressLocality":"Orlando","addressRegion":"FL","postalCode":"32806","addressCountry":"US"},
+    "openingHoursSpecification":[
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"19:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"10:00","closes":"17:00"}
+    ],
+    "url": "https://example.com",
+    "sameAs": ["https://www.facebook.com/yourpage","https://www.instagram.com/yourpage"]
+  }
+  </script>
+
+  <!-- ======= Google Tag Manager (optional) ======= -->
+  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
+</body>
+</html>
