@@ -41,48 +41,9 @@
 
     <section id="inventory" class="wrap" aria-label="Inventory">
       <h2>Live Inventory</h2>
-      <div class="cards">
-        <!-- Card 1 -->
-        <article class="card">
-          <div class="thumb">
-            <img alt="Porsche 911" src="https://placehold.co/800x450?text=Porsche+911">
-          </div>
-          <div class="cbody">
-            <div class="price">$129,990</div>
-            <div class="meta">2023 • Porsche 911 Carrera S • 5,100 mi • RWD</div>
-            <div>
-              <span class="chip">Certified</span><span class="chip">BOSE</span><span class="chip">Sport Chrono</span>
-            </div>
-          </div>
-        </article>
-        <!-- Card 2 -->
-        <article class="card">
-          <div class="thumb">
-            <img alt="Tesla Model S" src="https://placehold.co/800x450?text=Tesla+Model+S">
-          </div>
-          <div class="cbody">
-            <div class="price">$54,990</div>
-            <div class="meta">2021 • Tesla Model S Long Range • 21,800 mi • AWD</div>
-            <div>
-              <span class="chip">Electric</span><span class="chip">Autopilot</span><span class="chip">Glass Roof</span>
-            </div>
-          </div>
-        </article>
-        <!-- Card 3 -->
-        <article class="card">
-          <div class="thumb">
-            <img alt="Mercedes-Benz GLC" src="https://placehold.co/800x450?text=Mercedes-Benz+GLC+300">
-          </div>
-          <div class="cbody">
-            <div class="price">$48,990</div>
-            <div class="meta">2023 • Mercedes-Benz GLC 300 4MATIC • 8,900 mi • AWD</div>
-            <div>
-              <span class="chip">Panorama Roof</span><span class="chip">MBUX</span><span class="chip">360° Camera</span>
-            </div>
-          </div>
-        </article>
-      </div>
-      <small class="muted">Prices plus tax, tag, title, and dealer fees.</small>
+
+      <!-- The grid will be filled by JS -->
+      <div id="inventoryGrid" class="cards" aria-live="polite"></div>
     </section>
 
     <section id="finance" class="wrap" aria-label="Finance">
@@ -173,5 +134,65 @@
       <small class="muted">Estimated payments and pricing are for reference only; actual terms vary.</small>
     </div>
   </footer>
+
+  <!-- ========= Inventory + Live Market Script ========= -->
+  <script>
+    // 1) Your current inventory (photos are real via Unsplash Source, no account needed)
+    //    Replace or add more items as you like.
+    const INVENTORY = [
+      {
+        id:"EAS-001", year:2023, make:"Porsche", model:"911", trim:"Carrera S",
+        price:129990, zip:"32806",
+        photo:"https://source.unsplash.com/800x450/?porsche,911,car"
+      },
+      {
+        id:"EAS-002", year:2021, make:"Tesla", model:"Model S", trim:"Long Range",
+        price:54990, zip:"32806",
+        photo:"https://source.unsplash.com/800x450/?tesla,model-s,car"
+      },
+      {
+        id:"EAS-003", year:2023, make:"Mercedes-Benz", model:"GLC", trim:"300 4MATIC",
+        price:48990, zip:"32806",
+        photo:"https://source.unsplash.com/800x450/?mercedes,glc,car"
+      }
+    ];
+
+    // 2) Render the cards
+    const grid = document.getElementById('inventoryGrid');
+    const fmt = n => n.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0});
+
+    INVENTORY.forEach(v => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb"><img alt="${v.year} ${v.make} ${v.model}" loading="lazy" src="${v.photo}"></div>
+        <div class="cbody">
+          <div class="price">${fmt(v.price)}</div>
+          <div class="meta"><strong>${v.year} ${v.make} ${v.model}${v.trim? ' ' + v.trim : ''}</strong></div>
+          <div class="meta market" id="mkt-${v.id}" aria-live="polite"></div>
+        </div>
+      `;
+      grid.append(card);
+      // 3) Ask our Netlify Function for a live market price (if configured)
+      updateMarket(v).catch(()=>{ /* silent if function not configured yet */ });
+    });
+
+    async function updateMarket(v){
+      const qs = new URLSearchParams({
+        year: String(v.year),
+        make: v.make,
+        model: v.model,
+        zip: v.zip,
+        radius: '250'
+      });
+      const res = await fetch('/.netlify/functions/market?' + qs.toString());
+      if(!res.ok) return;
+      const data = await res.json();
+      if(data && data.median){
+        const el = document.getElementById('mkt-' + v.id);
+        el.textContent = `Estimated Market (near ${v.zip}): ${fmt(data.median)} · ${data.samples||0} comps`;
+      }
+    }
+  </script>
 </body>
 </html>
