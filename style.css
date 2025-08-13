@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enterprise Auto Sales — Premium Vehicle Wholesaler</title>
+  <meta name="description" content="Premium wholesaling, retail-ready inventory, financing, trade-in, and nationwide delivery.">
+  <meta name="theme-color" content="#0b0b0b">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Playfair+Display:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav class="wrap nav">
+      <a class="brand" href="#top"><span class="name">ENTERPRISE AUTO SALES</span></a>
+      <ul>
+        <li><a href="#inventory">Inventory</a></li>
+        <li><a href="#finance">Finance</a></li>
+        <li><a href="#trade">Trade‑In</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="btn primary" href="#inventory">Shop</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap inner">
+        <div class="eyebrow">Professional Vehicle Wholesaling • Retail‑Ready</div>
+        <h1>Find Your Next Vehicle</h1>
+        <p class="p">Transparent pricing. Verified histories. Fast delivery.</p>
+
+        <div class="statbar">
+          <div class="stat"><h3>15+</h3><div>Years Experience</div></div>
+          <div class="stat"><h3>10k+</h3><div>Vehicles Sourced</div></div>
+          <div class="stat"><h3>50</h3><div>States Covered</div></div>
+          <div class="stat"><h3>500+</h3><div>Dealer Partners</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inventory" class="wrap" aria-label="Inventory">
+      <h2>Live Inventory (Sample)</h2>
+      <div class="cards">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="thumb">
+            <img alt="Porsche 911" src="https://placehold.co/800x450?text=Porsche+911">
+          </div>
+          <div class="cbody">
+            <div class="price">$129,990</div>
+            <div class="meta">2023 • Porsche 911 Carrera S • 5,100 mi • RWD</div>
+            <div>
+              <span class="chip">Certified</span><span class="chip">BOSE</span><span class="chip">Sport Chrono</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="thumb">
+            <img alt="Tesla Model S" src="https://placehold.co/800x450?text=Tesla+Model+S">
+          </div>
+          <div class="cbody">
+            <div class="price">$54,990</div>
+            <div class="meta">2021 • Tesla Model S Long Range • 21,800 mi • AWD</div>
+            <div>
+              <span class="chip">Electric</span><span class="chip">Autopilot</span><span class="chip">Glass Roof</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="thumb">
+            <img alt="Mercedes-Benz GLC" src="https://placehold.co/800x450?text=Mercedes-Benz+GLC+300">
+          </div>
+          <div class="cbody">
+            <div class="price">$48,990</div>
+            <div class="meta">2023 • Mercedes‑Benz GLC 300 4MATIC • 8,900 mi • AWD</div>
+            <div>
+              <span class="chip">Panorama Roof</span><span class="chip">MBUX</span><span class="chip">360° Camera</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <small class="muted">Prices plus tax, tag, title, and dealer fees. Inventory shown for demo.</small>
+    </section>
+
+    <section id="finance" class="wrap" aria-label="Finance">
+      <h2>Finance (Netlify Form)</h2>
+      <form name="finance" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" class="panel">
+        <input type="hidden" name="form-name" value="finance">
+        <p hidden><label>Don’t fill this out: <input name="bot-field"></label></p>
+        <div class="row">
+          <div>
+            <label for="finName">Full Name</label>
+            <input id="finName" name="name" required>
+          </div>
+          <div>
+            <label for="finEmail">Email</label>
+            <input id="finEmail" type="email" name="email" required>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="finPhone">Phone</label>
+            <input id="finPhone" name="phone" required>
+          </div>
+          <div>
+            <label for="finDown">Down Payment</label>
+            <input id="finDown" name="down" type="number" min="0" step="500" placeholder="e.g., 5000">
+          </div>
+        </div>
+        <button class="btn primary" type="submit">Pre‑Qualify</button>
+        <small class="muted">Soft inquiry; won’t impact your credit score.</small>
+      </form>
+    </section>
+
+    <section id="trade" class="wrap" aria-label="Trade-In">
+      <h2>Value Your Trade (Netlify Form)</h2>
+      <form name="trade" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" class="panel">
+        <input type="hidden" name="form-name" value="trade">
+        <p hidden><label>Don’t fill this out: <input name="bot-field"></label></p>
+        <div class="row">
+          <div><label for="tYear">Year</label><input id="tYear" name="year" type="number" min="1980" required></div>
+          <div><label for="tMake">Make</label><input id="tMake" name="make" required></div>
+        </div>
+        <div class="row">
+          <div><label for="tModel">Model</label><input id="tModel" name="model" required></div>
+          <div><label for="tMiles">Mileage</label><input id="tMiles" name="mileage" type="number" min="0"></div>
+        </div>
+        <label for="tNotes">Condition / Notes</label>
+        <textarea id="tNotes" name="notes" rows="3" placeholder="Trim, options, accidents, upgrades…"></textarea>
+        <div class="row">
+          <div><label for="tName">Your Name</label><input id="tName" name="name" required></div>
+          <div><label for="tContact">Best Contact</label><input id="tContact" name="contact" required placeholder="Email or phone"></div>
+        </div>
+        <button class="btn primary" type="submit">Get Appraisal</button>
+      </form>
+    </section>
+
+    <section id="contact" class="wrap" aria-label="Contact">
+      <h2>Contact & Hours</h2>
+      <div class="panel">
+        <p><strong>Phone:</strong> <a href="tel:+16562009734">(656) 200‑9734</a><br>
+           <strong>Email:</strong> <a href="mailto:deals@enterpriseauto.net">deals@enterpriseauto.net</a><br>
+           <strong>Address:</strong> 2462 East Michigan Street, Suite 207, Orlando, FL 32806</p>
+        <div class="row">
+          <div>
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+              <input type="hidden" name="form-name" value="contact">
+              <p hidden><label>Don’t fill this out: <input name="bot-field"></label></p>
+              <label for="cName">Name</label>
+              <input id="cName" name="name" required>
+              <label for="cEmail">Email</label>
+              <input id="cEmail" name="email" type="email" required>
+              <label for="cMsg">Message</label>
+              <textarea id="cMsg" name="message" rows="4" required placeholder="What can we find for you?"></textarea>
+              <button class="btn primary" type="submit">Send</button>
+            </form>
+          </div>
+          <div>
+            <iframe title="Map" width="100%" height="280" loading="lazy" style="border:1px solid #2a2a2a;border-radius:12px"
+              src="https://www.google.com/maps?q=2462%20East%20Michigan%20Street%20Orlando%20FL&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>&copy; 2025 Enterprise Auto Sales • Licensed Nationwide</div>
+      <small class="muted">Estimated payments and pricing are for reference only; actual terms vary.</small>
+    </div>
+  </footer>
+</body>
+</html>
